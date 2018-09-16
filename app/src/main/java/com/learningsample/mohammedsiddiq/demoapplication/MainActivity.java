@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     static final int ENTER_NAME_REQUEST = 1; // The request code
     private int nameActivityResultCode;
@@ -41,17 +41,19 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        nameButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,PersonName.class);
-                startActivityForResult(intent,ENTER_NAME_REQUEST);
-            }
-        });
+        nameButton.setOnClickListener(nameButtonListener);
 
         contactButton.setOnClickListener(contactButtonListener);
 
     }
+    private View.OnClickListener nameButtonListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(MainActivity.this,PersonName.class);
+            startActivityForResult(intent,ENTER_NAME_REQUEST);
+        }
+    };
+
     private View.OnClickListener contactButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

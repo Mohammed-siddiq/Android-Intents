@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
-public class PersonName extends AppCompatActivity {
+public class PersonName extends Activity {
 
     static final String ENTERED_NAME = "enteredName";
 
@@ -18,15 +21,26 @@ public class PersonName extends AppCompatActivity {
         Log.i(this.getLocalClassName()," Inside person Activity");
         EditText nameEditor = (EditText) findViewById(R.id.nameEditText);
 
-        String enteredName = nameEditor.getText().toString().trim(); // get the entered text and trim
+        nameEditor.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE){
+                    validateAndReturn(v.getText().toString().trim());
+                }
+                return true;
+            }
+        });
+
+    }
+
+    private void validateAndReturn(String enteredName) {
         Intent responseIntent = new Intent();
         responseIntent.putExtra(ENTERED_NAME,enteredName);
+        Log.i(getLocalClassName(),"Entered Name is " + enteredName);
         if (legalName(enteredName)) {
             setResult(Activity.RESULT_OK,responseIntent); // if legal name send OK response
         }
         setResult(Activity.RESULT_CANCELED,responseIntent); // if not send Cancelled respnse
-
-
         finish(); //closing activity
 
     }
@@ -43,14 +57,20 @@ public class PersonName extends AppCompatActivity {
 
         for (String name :
                 nameArray) {
+//            Log.d(getLocalClassName(),"Name entered " + name);
             if (name.length() < 2) { // if name has only one character
+                Log.d(getLocalClassName(),"Returning false because of length : " + name.length());
                 return false;
             }
-            if (!name.matches("[a-zA-z]")) { // if name contains other characters
+//            Log.d(getLocalClassName(),Boolean.toString(name.matches("[a-zA-Z]+")));
+            if (!name.matches("[a-zA-Z]+")) {// if name contains other characters
+//                Log.d(getLocalClassName(),"Returning false because of characters");
+
                 return false;
             }
 
         }
+//        Log.d(getLocalClassName(),"returning as Valid name");
         return true; // if control reaches here then Legal name
     }
 }
