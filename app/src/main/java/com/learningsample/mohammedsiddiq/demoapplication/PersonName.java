@@ -18,13 +18,13 @@ public class PersonName extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_person_name);
-        Log.i(this.getLocalClassName()," Inside person Activity");
+        Log.i(this.getLocalClassName(), " Inside person Activity");
         EditText nameEditor = (EditText) findViewById(R.id.nameEditText);
 
         nameEditor.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE){
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     validateAndReturn(v.getText().toString().trim());
                 }
                 return true;
@@ -35,12 +35,12 @@ public class PersonName extends Activity {
 
     private void validateAndReturn(String enteredName) {
         Intent responseIntent = new Intent();
-        responseIntent.putExtra(ENTERED_NAME,enteredName);
-        Log.i(getLocalClassName(),"Entered Name is " + enteredName);
-        if (legalName(enteredName)) {
-            setResult(Activity.RESULT_OK,responseIntent); // if legal name send OK response
-        }
-        setResult(Activity.RESULT_CANCELED,responseIntent); // if not send Cancelled respnse
+        responseIntent.putExtra(ENTERED_NAME, enteredName);
+        Log.i(getLocalClassName(), "Entered Name is " + enteredName);
+        if (legalName(enteredName))
+            setResult(Activity.RESULT_OK, responseIntent); // if legal name send OK response
+        else
+            setResult(Activity.RESULT_CANCELED, responseIntent); // if not send Cancelled respnse
         finish(); //closing activity
 
     }
@@ -59,7 +59,7 @@ public class PersonName extends Activity {
                 nameArray) {
 //            Log.d(getLocalClassName(),"Name entered " + name);
             if (name.length() < 2) { // if name has only one character
-                Log.d(getLocalClassName(),"Returning false because of length : " + name.length());
+                Log.d(getLocalClassName(), "Returning false because of length : " + name.length());
                 return false;
             }
 //            Log.d(getLocalClassName(),Boolean.toString(name.matches("[a-zA-Z]+")));
