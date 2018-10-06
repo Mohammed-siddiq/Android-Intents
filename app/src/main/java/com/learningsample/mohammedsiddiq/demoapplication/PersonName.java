@@ -25,7 +25,7 @@ public class PersonName extends Activity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    validateAndReturn(v.getText().toString().trim());
+                    validateAndReturn(v.getText().toString().trim());//trimming to removing leading ands trailing white spaces
                 }
                 return true;
             }
@@ -59,7 +59,7 @@ public class PersonName extends Activity {
                 nameArray) {
 //            Log.d(getLocalClassName(),"Name entered " + name);
             if (name.length() < 2) { // if name has only one character
-                Log.d(getLocalClassName(), "Returning false because of length : " + name.length());
+                Log.d(getLocalClassName(), "Returning false because of length : " +  name.length());
                 return false;
             }
 //            Log.d(getLocalClassName(),Boolean.toString(name.matches("[a-zA-Z]+")));

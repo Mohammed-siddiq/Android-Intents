@@ -77,10 +77,7 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(Intent.ACTION_INSERT);
         intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
         intent.putExtra(ContactsContract.Intents.Insert.NAME, userName);
-        intent.putExtra("finishActivityOnSaveCompleted", true);
-        Log.d(getLocalClassName(), intent.toString());
         startActivityForResult(intent, ADD_CONTACT_REQUEST);
-
 
     }
 
