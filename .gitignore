@@ -1,5 +1,11 @@
 *.iml
-.gradle
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+*.gradle
 /.idea
 /local.properties
 /.idea/libraries
